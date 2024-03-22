@@ -110,6 +110,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Image(image: AssetImage('images/spiaggia_dipinto.jpg')), // inserire immagine dichiarata in pubspec.yaml (primo modo)
+            // Image.asset('images/spiaggia_dipinto.jpg'), // inserire immagine dichiarata in pubspec.yaml (secondo modo)
+            Container(
+              width: 300,
+              height: 300,
+              child: Image.network(
+                  'https://images.unsplash.com/photo-1710945464442-da118a917a4b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+              ), // inserire immagine da internet
+            ),
             const Text(
               'You have pushed the button this many times:',
               style: TextStyle(
