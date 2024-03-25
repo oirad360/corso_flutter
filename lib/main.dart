@@ -57,7 +57,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  List<int> lista = [1,2,3,4,5,6,7,8,9,10];
+  List<int> lista = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   void _incrementCounter() {
     setState(() {
@@ -94,17 +94,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
           ),
         ),
-        body: ListView( // anzichè Column + wrap con SingleChildScrollView e Scrollbar, usiamo ListView per poter scrollare la lista e risparmiamo vari widget
+        body: GridView.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 5,
           children: [
-            for(var i in lista)
-            Container(
-              alignment: Alignment.center,
-              width: double.infinity,
-              height: 100,
-              color: Colors.red,
-              margin: EdgeInsets.only(bottom: 10),
-              child: Text('${i}')
-            )
+            for (var i in lista)
+              Container(
+                color: Colors.blue,
+                child: Center(
+                  child: Text('Item $i'),
+                ),
+              )
           ],
         ),
         floatingActionButton: FloatingActionButton(
