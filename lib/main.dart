@@ -77,38 +77,39 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(
-          widget.title,
-          style: const TextStyle(
-              fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
-        ),
-      ),
-      body: Stack( // Stack è un widget che permette di sovrapporre più widget e posizionarli liberamente
-        children: [ // i children che vogliamo posizionare saranno dei Positioned
-          Container( // questo non è messo dentro un Positioned, quindi sarà posizionato in alto a sinistra per default
-            height: 500,
-            color: Colors.red,
+    return Stack(children: [ // abbiamo messo lo Stack al posto del Scaffold, che ora è un figlio dello Stack, quindi lo Stack è il nuovo root widget e occuperà tanto quanto lo schermo
+      Scaffold(
+        appBar: AppBar(
+          // TRY THIS: Try changing the color here to a specific color (to
+          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+          // change color while the other colors stay the same.
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(
+            widget.title,
+            style: const TextStyle(
+                fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
           ),
-          const Positioned(
-              left: 100, // le proprietà che specifichiamo nei Positioned figli dello Stack saranno relative ai confini dello Stack
-              bottom: 50, // in questo abbiamo messo un Container alto 500px tra i children dello Stack quindi quest'ultimo occuperà tanto quanto
-              child: Icon(Icons.ac_unit) // questa è un icona dentro un Positioned, quindi sarà posizionata secondo le proprietà che specifichiamo in Positioned (left, right, top, bottom)
-          )
-        ],
+        ),
+        body: Container(
+          height: 500,
+          color: Colors.red,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      Positioned( // questo widget è posizionato rispetto allo Stack che non è influenzato dallo Scaffold perchè adesso Scaffold è un figlio dello Stack
+        // prima avevamo lo Stack nel body dello Scaffold per cui i confini da cui sarebbe dipeso il posizionamento dei children erano stabiliti da esso
+        bottom: 100, // se, per esempio, potessimo scrollare la pagina, questo widget rimarrebbe sempre a 100 pixel dal fondo dello schermo
+        left: 100,
+        height: 50,
+        width: 50,
+        child: Container(color: Colors.orangeAccent, child: Icon(Icons.ac_unit))
+      ),
+    ]);
   }
 }
