@@ -97,8 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 200,
             color: Colors.red,
           ),
-          const Expanded( // Expanded è un widget che si espande per riempire lo spazio rimanente, non richiede height e width (in questo caso il container blu scende fino in fondo)
-            child: Text('expanded'),
+          ConstrainedBox( // ConstrainedBox è un widget che permette di definire vincoli di dimensione per un figlio
+            constraints: BoxConstraints(minHeight: 100, maxWidth: 200),
+            child: Container( // utilizziamo Container come figlio di ConstrainedBox per testare i vincoli applicati anche se in realtà Container presenta già la proprietà 'constraints' per definire vincoli
+              height: 10, // specifico altezza 10, ma il vincolo minimo è 100, quindi la dimensione minima sarà 100
+              width: 300, // specifico larghezza 300, ma il vincolo massimo è 200, quindi la dimensione massima sarà 200
+              color: Colors.green,
+            ),
           ),
           Container(
             height: 200,
