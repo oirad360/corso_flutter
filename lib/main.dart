@@ -91,15 +91,17 @@ class _MyHomePageState extends State<MyHomePage> {
               fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
         ),
       ),
-      body: Container(
-        height: 300,
-        width: 300,
-        alignment: Alignment.topRight, // alignment del child
-        padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.all(20),
-        decoration: BoxDecoration(color: Colors.red, border: Border.all(width:10, color: Colors.blue)),
-        child: const Text('ciao ciao ciao'),
-        // transform: Matrix4.rotationZ(0.1), // rotazione del container sull'asse z
+      body: Padding( // Widget Padding, lo possiamo usare per aggiungere padding ATTORNO al container (messo come child di Padding)
+        padding: EdgeInsets.all(20), // mettiamo un padding di 20 attorno al container, è lo stesso effetto di mettere 'margin' come proprietà dentro il container
+        child: Container(
+          height: 300,
+          width: 300,
+          padding: EdgeInsets.all(20), // questo è un padding INTERNO al container
+          alignment: Alignment.topRight, // alignment del child
+          decoration: BoxDecoration(color: Colors.red, border: Border.all(width:10, color: Colors.blue)),
+          child: const Text('ciao ciao ciao'),
+          // transform: Matrix4.rotationZ(0.1), // rotazione del container sull'asse z
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
