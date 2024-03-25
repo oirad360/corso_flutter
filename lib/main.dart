@@ -77,7 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Stack(children: [ // abbiamo messo lo Stack al posto del Scaffold, che ora è un figlio dello Stack, quindi lo Stack è il nuovo root widget e occuperà tanto quanto lo schermo
+    return Stack(children: [
+      // abbiamo messo lo Stack al posto del Scaffold, che ora è un figlio dello Stack, quindi lo Stack è il nuovo root widget e occuperà tanto quanto lo schermo
       Scaffold(
         appBar: AppBar(
           // TRY THIS: Try changing the color here to a specific color (to
@@ -92,9 +93,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
           ),
         ),
-        body: Container(
-          height: 500,
-          color: Colors.red,
+        body: Scrollbar(
+          thickness: 10,
+          thumbVisibility: true, // rende la scrollbar sempre visibile
+          trackVisibility: true, // rende la pista della scrollbar sempre visibile
+          scrollbarOrientation: ScrollbarOrientation.right, // se scrollDirection è vertical, la scrollbarOrientation può essere solo right o left, altrimenti top o bottom
+          child: SingleChildScrollView(
+            // a sua volta, wrappiamo il SingleChildScrollView con una Scrollbar per avere la barra di scorrimento visibile
+            scrollDirection: Axis.vertical,
+            padding: EdgeInsets.all(20),
+            child: Column(
+              // questa colonna contiene del testo che esce fuori dallo schermo, la wrappiamo con uno SingleChildScrollView per poterlo scorrere
+              children: [
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+              ],
+            ),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _incrementCounter,
@@ -102,14 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      Positioned( // questo widget è posizionato rispetto allo Stack che non è influenzato dallo Scaffold perchè adesso Scaffold è un figlio dello Stack
-        // prima avevamo lo Stack nel body dello Scaffold per cui i confini da cui sarebbe dipeso il posizionamento dei children erano stabiliti da esso
-        bottom: 100, // se, per esempio, potessimo scrollare la pagina, questo widget rimarrebbe sempre a 100 pixel dal fondo dello schermo
-        left: 100,
-        height: 50,
-        width: 50,
-        child: Container(color: Colors.orangeAccent, child: Icon(Icons.ac_unit))
-      ),
+      Positioned(
+          // questo widget è posizionato rispetto allo Stack che non è influenzato dallo Scaffold perchè adesso Scaffold è un figlio dello Stack
+          // prima avevamo lo Stack nel body dello Scaffold per cui i confini da cui sarebbe dipeso il posizionamento dei children erano stabiliti da esso
+          bottom: 100,
+          // se, per esempio, potessimo scrollare la pagina, questo widget rimarrebbe sempre a 100 pixel dal fondo dello schermo
+          left: 100,
+          height: 50,
+          width: 50,
+          child: Container(
+              color: Colors.orangeAccent, child: Icon(Icons.ac_unit))),
     ]);
   }
 }
