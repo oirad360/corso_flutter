@@ -57,6 +57,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<int> lista = [1,2,3,4,5,6,7,8,9,10];
 
   void _incrementCounter() {
     setState(() {
@@ -93,35 +94,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
           ),
         ),
-        body: Scrollbar(
-          thickness: 10,
-          thumbVisibility: true, // rende la scrollbar sempre visibile
-          trackVisibility: true, // rende la pista della scrollbar sempre visibile
-          scrollbarOrientation: ScrollbarOrientation.right, // se scrollDirection è vertical, la scrollbarOrientation può essere solo right o left, altrimenti top o bottom
-          child: SingleChildScrollView(
-            // a sua volta, wrappiamo il SingleChildScrollView con una Scrollbar per avere la barra di scorrimento visibile
-            scrollDirection: Axis.vertical,
-            padding: EdgeInsets.all(20),
-            child: Column(
-              // questa colonna contiene del testo che esce fuori dallo schermo, la wrappiamo con uno SingleChildScrollView per poterlo scorrere
-              children: [
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-                Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-              ],
-            ),
-          ),
+        body: ListView( // anzichè Column + wrap con SingleChildScrollView e Scrollbar, usiamo ListView per poter scrollare la lista e risparmiamo vari widget
+          children: [
+            for(var i in lista)
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: 100,
+              color: Colors.red,
+              margin: EdgeInsets.only(bottom: 10),
+              child: Text('${i}')
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _incrementCounter,
