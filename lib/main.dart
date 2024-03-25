@@ -97,8 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 200,
             color: Colors.red,
           ),
-          const SizedBox( // la SizedBox spesso si usa per dare spazio vuoto tra un widget e l'altro
-            height: 100,
+          const Expanded( // Expanded è un widget che si espande per riempire lo spazio rimanente, non richiede height e width (in questo caso il container blu scende fino in fondo)
+            child: Text('expanded'),
           ),
           Container(
             height: 200,
