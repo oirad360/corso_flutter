@@ -94,20 +94,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
           ),
         ),
-        body: GridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 5,
-          children: [
-            for (var i in lista)
-              Container(
+        body: GridView.builder(
+            // il builder costruisce la griglia tramite una funzione (itemBuilder) che restituisce un widget tante volte fino ad 'itemCount'
+            // a differenza di GridView.count, che costruisce la griglia con un numero fisso di elementi (i children)
+            itemCount: lista.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 10,
+            ),
+            itemBuilder: (context, index) {
+              return Container(
                 color: Colors.blue,
                 child: Center(
-                  child: Text('Item $i'),
+                  child: Text('Item $index'),
                 ),
-              )
-          ],
-        ),
+              );
+            }),
         floatingActionButton: FloatingActionButton(
           onPressed: _incrementCounter,
           tooltip: 'Increment',
