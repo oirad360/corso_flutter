@@ -91,24 +91,17 @@ class _MyHomePageState extends State<MyHomePage> {
               fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            height: 200,
+      body: Stack( // Stack è un widget che permette di sovrapporre più widget e posizionarli liberamente
+        children: [ // i children che vogliamo posizionare saranno dei Positioned
+          Container( // questo non è messo dentro un Positioned, quindi sarà posizionato in alto a sinistra per default
+            height: 500,
             color: Colors.red,
           ),
-          ConstrainedBox( // ConstrainedBox è un widget che permette di definire vincoli di dimensione per un figlio
-            constraints: BoxConstraints(minHeight: 100, maxWidth: 200),
-            child: Container( // utilizziamo Container come figlio di ConstrainedBox per testare i vincoli applicati anche se in realtà Container presenta già la proprietà 'constraints' per definire vincoli
-              height: 10, // specifico altezza 10, ma il vincolo minimo è 100, quindi la dimensione minima sarà 100
-              width: 300, // specifico larghezza 300, ma il vincolo massimo è 200, quindi la dimensione massima sarà 200
-              color: Colors.green,
-            ),
-          ),
-          Container(
-            height: 200,
-            color: Colors.blue,
-          ),
+          const Positioned(
+              left: 100, // le proprietà che specifichiamo nei Positioned figli dello Stack saranno relative ai confini dello Stack
+              bottom: 50, // in questo abbiamo messo un Container alto 500px tra i children dello Stack quindi quest'ultimo occuperà tanto quanto
+              child: Icon(Icons.ac_unit) // questa è un icona dentro un Positioned, quindi sarà posizionata secondo le proprietà che specifichiamo in Positioned (left, right, top, bottom)
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
