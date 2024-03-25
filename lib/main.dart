@@ -94,23 +94,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
           ),
         ),
-        body: GridView.builder(
-            // il builder costruisce la griglia tramite una funzione (itemBuilder) che restituisce un widget tante volte fino ad 'itemCount'
-            // a differenza di GridView.count, che costruisce la griglia con un numero fisso di elementi (i children)
-            itemCount: lista.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) {
-              return Container(
-                color: Colors.blue,
-                child: Center(
-                  child: Text('Item $index'),
+        body: ListView(
+          padding: const EdgeInsets.all(8),
+          children: [
+            for (var i in lista)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: ListTile( // ListTile è un widget che permette di creare una riga con un titolo, un sottotitolo, un'icona a destra e un'icona a sinistra
+                  tileColor: i % 2 == 0 ? Colors.grey[300] : Colors.grey[100],
+                  title: Text('Elemento $i'),
+                  subtitle: Text('Sottotitolo elemento $i'),
+                  trailing: Icon(Icons.drag_handle),
+                  leading: CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                        'https://picsum.photos/250?image=${i * 10}'),
+                  ),
+                  onTap: () {
+                    print('Elemento $i premuto');
+                  },
                 ),
-              );
-            }),
+              )
+
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: _incrementCounter,
           tooltip: 'Increment',
