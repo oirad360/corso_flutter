@@ -92,78 +92,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Container(
-        color: Colors.red,
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center, // simile al justify content di css
-          crossAxisAlignment: CrossAxisAlignment.center, // simile al align-items di css
-          mainAxisSize: MainAxisSize.max, // occupa tutto lo spazio possibile
-          children: <Widget>[
-            // Image(image: AssetImage('images/spiaggia_dipinto.jpg')), // inserire immagine dichiarata in pubspec.yaml (primo modo)
-            // Image.asset('images/spiaggia_dipinto.jpg'), // inserire immagine dichiarata in pubspec.yaml (secondo modo)
-            Container(
-              width: 300,
-              height: 300,
-              child: Image.network(
-                  'https://images.unsplash.com/photo-1710945464442-da118a917a4b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
-              ), // inserire immagine da internet
-            ),
-            const Text(
-              'You have pushed the button this many times:',
-              style: TextStyle(
-                  shadows: <Shadow>[
-                    Shadow(
-                        color: Colors.grey, blurRadius: 5, offset: Offset(1, 1))
-                  ],
-                  fontFamily: 'LoversQuarrel',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 30),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            TextButton(onPressed: null, child: Text('premi')),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.access_alarm),
-              label: Text('Alarm'),
-              style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.resolveWith((states) { // resolveWith permette di passare uno stato e restituire un valore
-                if (states.contains(MaterialState.pressed)) {
-                  return Colors.red;
-                }
-                return null;
-              })),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.camera),
-              label: Text('Camera'),
-              style: ElevatedButton.styleFrom( // styleFrom permette di impostare lo stile senza utilizzare lo stato
-                elevation: 4,
-                shadowColor: Colors.grey,
-                enableFeedback: true,
-              ),
-            ),
-          ],
-        ),
+        height: 300,
+        width: 300,
+        alignment: Alignment.topRight, // alignment del child
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
+        decoration: BoxDecoration(color: Colors.red, border: Border.all(width:10, color: Colors.blue)),
+        child: const Text('ciao ciao ciao'),
+        // transform: Matrix4.rotationZ(0.1), // rotazione del container sull'asse z
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
