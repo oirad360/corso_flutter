@@ -1,5 +1,6 @@
+import 'package:corso_flutter/widgets/CardTesto.dart';
+import 'package:corso_flutter/widgets/CardVideo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -79,61 +80,23 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      // appBar: AppBar(
-      //   // TRY THIS: Try changing the color here to a specific color (to
-      //   // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-      //   // change color while the other colors stay the same.
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   // Here we take the value from the MyHomePage object that was created by
-      //   // the App.build method, and use it to set our appbar title.
-      //   title: Text(widget.title),
-      // ),
-      body: CustomScrollView(
-        slivers: [ // gli slivers devono essere passati dentro una CustomScrollView
-          const SliverAppBar( // è un'appbar con effetti in più (da utilizzare in sostituzione della appBar di Scaffold)
-            backgroundColor: Colors.blue,
-            title: Text('SliverAppBar'),
-            floating: true,
-            snap: true,
-            pinned: true,
-            expandedHeight: 120,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text('SliverAppBar1'),
-            ),
-          ),
-          SliverList( // è simile a ListView
-            delegate: SliverChildBuilderDelegate( // in alternativa possiamo usare SliverChildDelegate che riempie la lista aggiungendo a mano (con un for) i children
-              // questo, invece, utilizza una funzione per generare i children
-              childCount: lista.length,
-              (context, index) {
-                return ListTile(
-                  tileColor: index % 2 == 0 ? Colors.grey[200] : Colors.white,
-                  trailing: Icon(Icons.drag_handle),
-                  title: Text('Item ${lista[index]}'),
-                );
-              },
-            ),
-          ),
-          SliverGrid( // simile a GridView.builder
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Container(
-                  color: Colors.grey[300],
-                  child: Center(
-                    child: Text('Item ${lista[index]}'),
-                  ),
-                );
-              },
-              childCount: lista.length,
-            ),
-          )
-        ],
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
       ),
+      body: ListView.builder(itemCount: lista.length, itemBuilder: (context, index) {
+        // CardVideo e CardTesto sono due widget personalizzati creati in due file separati
+        if(lista[index] % 2 == 0){
+          return CardVideo(numero: lista[index]);
+        } else {
+          return CardTesto(numero: lista[index]);
+        }
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
