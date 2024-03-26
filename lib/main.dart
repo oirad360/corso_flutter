@@ -86,39 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(
-          widget.title,
-          style: const TextStyle(
-              fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
-        ),
+        title: Text(widget.title),
       ),
-      body: SizedBox(
-        height: 400,
-        width: 290,
-        child: Card(
-          margin: const EdgeInsets.all(20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          clipBehavior: Clip.hardEdge, // con questa proprietà il contenuto della card viene tagliato in base alla forma della card
-            // in questo caso un rettangolo con i bordi arrotondati, quindi l'immagine avrà i bordi superiori arrotondati
-          shadowColor: Colors.red,
-          elevation: 20,
-          child: Column(
-            children: [
-              Image.network('https://picsum.photos/251?image=323',),
-              const ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage('https://picsum.photos/250?image=56'),
-                  radius: 30,
-                ),
-                title: Text('Titolo'),
-                subtitle: Text('Sottotitolo'),
-                trailing: Icon(Icons.favorite),
-              )
-            ]
-          )
-        )
+      body: ClipRRect( // permette di arrotondare i bordi di un widget, utile qualora il widget non presenti la proprietà borderRadius
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+        child: Opacity( // permette di rendere un widget transparente
+          opacity: 0.5,
+          child: Container(height: 300, color: Colors.red),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
