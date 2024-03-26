@@ -92,58 +92,34 @@ class _MyHomePageState extends State<MyHomePage> {
               fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-          children: [
-            for (var i in lista)
-              GridTile( // GridTile è un widget che permette di creare un elemento della griglia con un'immagine, un header e un footer
-                header: GridTileBar(
-                  title: Text('Elemento $i'),
-                  subtitle: Text('Sottotitolo elemento $i'),
-                  backgroundColor: Colors.black.withOpacity(0.5),
+      body: SizedBox(
+        height: 400,
+        width: 290,
+        child: Card(
+          margin: const EdgeInsets.all(20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          clipBehavior: Clip.hardEdge, // con questa proprietà il contenuto della card viene tagliato in base alla forma della card
+            // in questo caso un rettangolo con i bordi arrotondati, quindi l'immagine avrà i bordi superiori arrotondati
+          shadowColor: Colors.red,
+          elevation: 20,
+          child: Column(
+            children: [
+              Image.network('https://picsum.photos/251?image=323',),
+              const ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage('https://picsum.photos/250?image=56'),
+                  radius: 30,
                 ),
-                footer: GridTileBar(
-                  title: Text('Footer elemento $i'),
-                  subtitle: Text('Sottotitolo footer elemento $i'),
-                  backgroundColor: Colors.black.withOpacity(0.5),
-                  trailing: const Icon(Icons.favorite, color: Colors.red),
-                ),
-                child: Image.network(
-                  'https://picsum.photos/250?image=${i * 10}',
-                  fit: BoxFit.cover,
-                ),
+                title: Text('Titolo'),
+                subtitle: Text('Sottotitolo'),
+                trailing: Icon(Icons.favorite),
               )
-          ],
-        ),
+            ]
+          )
+        )
       ),
-      // ListView(
-      //   padding: const EdgeInsets.all(8),
-      //   children: [
-      //     for (var i in lista)
-      //       Padding(
-      //         padding: const EdgeInsets.only(bottom: 8),
-      //         child: ListTile( // ListTile è un widget che permette di creare una riga con un titolo, un sottotitolo, un'icona a destra e un'icona a sinistra
-      //           tileColor: i % 2 == 0 ? Colors.grey[300] : Colors.grey[100],
-      //           title: Text('Elemento $i'),
-      //           subtitle: Text('Sottotitolo elemento $i'),
-      //           trailing: Icon(Icons.drag_handle),
-      //           leading: CircleAvatar(
-      //             radius: 30,
-      //             backgroundImage: NetworkImage(
-      //                 'https://picsum.photos/250?image=${i * 10}'),
-      //           ),
-      //           onTap: () {
-      //             print('Elemento $i premuto');
-      //           },
-      //         ),
-      //       )
-      //
-      //   ],
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
