@@ -88,18 +88,23 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: ClipRRect( // permette di arrotondare i bordi di un widget, utile qualora il widget non presenti la proprietà borderRadius
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-        child: Opacity( // permette di rendere un widget transparente
-          opacity: 0.5,
-          child: Container(height: 300, color: Colors.red),
-        ),
-      ),
+      body: DecoratedBox( // DecoratedBox è un widget che permette di applicare una decorazione a un figlio
+          decoration: const BoxDecoration( // la decoration sarà visibile solo se viene inserito un figlio (in questo caso un semplice container)
+            // image: DecorationImage(
+            //   image: AssetImage('images/spiaggia_dipinto.jpg'),
+            //   fit: BoxFit.cover,
+            // ),
+            color: Colors.blue,
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              colors: [Colors.red, Colors.blue],
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+            ),
+          ),
+          child: Container(
+            height: 300,
+          )),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
