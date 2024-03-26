@@ -78,62 +78,77 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Stack(children: [
-      // abbiamo messo lo Stack al posto del Scaffold, che ora è un figlio dello Stack, quindi lo Stack è il nuovo root widget e occuperà tanto quanto lo schermo
-      Scaffold(
-        appBar: AppBar(
-          // TRY THIS: Try changing the color here to a specific color (to
-          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-          // change color while the other colors stay the same.
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(
-            widget.title,
-            style: const TextStyle(
-                fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(
+          widget.title,
+          style: const TextStyle(
+              fontFamily: 'LoversQuarrel', fontWeight: FontWeight.w600),
         ),
-        body: ListView(
-          padding: const EdgeInsets.all(8),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
           children: [
             for (var i in lista)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: ListTile( // ListTile è un widget che permette di creare una riga con un titolo, un sottotitolo, un'icona a destra e un'icona a sinistra
-                  tileColor: i % 2 == 0 ? Colors.grey[300] : Colors.grey[100],
+              GridTile( // GridTile è un widget che permette di creare un elemento della griglia con un'immagine, un header e un footer
+                header: GridTileBar(
                   title: Text('Elemento $i'),
                   subtitle: Text('Sottotitolo elemento $i'),
-                  trailing: Icon(Icons.drag_handle),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                        'https://picsum.photos/250?image=${i * 10}'),
-                  ),
-                  onTap: () {
-                    print('Elemento $i premuto');
-                  },
+                  backgroundColor: Colors.black.withOpacity(0.5),
+                ),
+                footer: GridTileBar(
+                  title: Text('Footer elemento $i'),
+                  subtitle: Text('Sottotitolo footer elemento $i'),
+                  backgroundColor: Colors.black.withOpacity(0.5),
+                  trailing: const Icon(Icons.favorite, color: Colors.red),
+                ),
+                child: Image.network(
+                  'https://picsum.photos/250?image=${i * 10}',
+                  fit: BoxFit.cover,
                 ),
               )
-
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      Positioned(
-          // questo widget è posizionato rispetto allo Stack che non è influenzato dallo Scaffold perchè adesso Scaffold è un figlio dello Stack
-          // prima avevamo lo Stack nel body dello Scaffold per cui i confini da cui sarebbe dipeso il posizionamento dei children erano stabiliti da esso
-          bottom: 100,
-          // se, per esempio, potessimo scrollare la pagina, questo widget rimarrebbe sempre a 100 pixel dal fondo dello schermo
-          left: 100,
-          height: 50,
-          width: 50,
-          child: Container(
-              color: Colors.orangeAccent, child: Icon(Icons.ac_unit))),
-    ]);
+      // ListView(
+      //   padding: const EdgeInsets.all(8),
+      //   children: [
+      //     for (var i in lista)
+      //       Padding(
+      //         padding: const EdgeInsets.only(bottom: 8),
+      //         child: ListTile( // ListTile è un widget che permette di creare una riga con un titolo, un sottotitolo, un'icona a destra e un'icona a sinistra
+      //           tileColor: i % 2 == 0 ? Colors.grey[300] : Colors.grey[100],
+      //           title: Text('Elemento $i'),
+      //           subtitle: Text('Sottotitolo elemento $i'),
+      //           trailing: Icon(Icons.drag_handle),
+      //           leading: CircleAvatar(
+      //             radius: 30,
+      //             backgroundImage: NetworkImage(
+      //                 'https://picsum.photos/250?image=${i * 10}'),
+      //           ),
+      //           onTap: () {
+      //             print('Elemento $i premuto');
+      //           },
+      //         ),
+      //       )
+      //
+      //   ],
+      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
