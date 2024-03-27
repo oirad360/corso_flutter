@@ -26,7 +26,7 @@ class PrimaPagina extends StatelessWidget {
             }),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/seconda');
+            Navigator.pushNamed(context, '/seconda', arguments: 'Ciaooo'); // passiamo un argomento alla navigazione
           },
           tooltip: 'Cambia pagina',
           child: Icon(Icons.change_circle),

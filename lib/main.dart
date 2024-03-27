@@ -1,3 +1,4 @@
+import 'package:corso_flutter/RouteGenerator.dart';
 import 'package:corso_flutter/screens/PrimaPagina.dart';
 import 'package:corso_flutter/screens/SecondaPagina.dart';
 import 'package:corso_flutter/widgets/CardTesto.dart';
@@ -36,10 +37,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: PrimaPagina(),
-      routes: {
-        '/prima': (context) => PrimaPagina(),
-        '/seconda': (context) => SecondaPagina(data: 'Ciao'), // qui sto passando dati statici, cioè ogni volta che navigo verso la SecondaPagina, il testo sarà sempre 'Ciao'
-      },
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
