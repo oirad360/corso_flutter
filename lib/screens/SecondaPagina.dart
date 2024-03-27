@@ -27,34 +27,17 @@ class _SecondaPaginaState extends State<SecondaPagina> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text('Flutter Demo Home Page'),
         ),
-        body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(
-              'Seconda Pagina',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            Text(widget.data, style: TextStyle(fontSize: 24)),
-            AnimatedContainer(
-                duration: const Duration(seconds: 1),
-                width: _width,
-                height: _height,
-                color: _color,
-                curve: Curves.fastOutSlowIn // si possono usare diverse curve per l'animazione
-            ),
-            // è un container che esegue un'animazione al cambio delle proprietà
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    final random = Random();
-                    _width = random.nextInt(300).toDouble();
-                    _height = random.nextInt(300).toDouble();
-                    _color = Color.fromRGBO(random.nextInt(256),
-                        random.nextInt(256), random.nextInt(256), 1);
-                  });
-                },
-                child: const Text('Randomizza'))
-          ]),
-        ),
+        body: Column(children: [
+          Hero(
+              tag: 'immagine-copertina',
+              child: Image.asset('images/spiaggia_dipinto.jpg',
+                  fit: BoxFit.cover)),
+          Text(
+            'Benvenuto nel Corso Flutter!',
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          Text(widget.data, style: TextStyle(fontSize: 24)),
+        ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, '/prima');

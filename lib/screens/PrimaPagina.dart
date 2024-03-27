@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:corso_flutter/screens/SecondaPagina.dart';
 import 'package:corso_flutter/widgets/CardTesto.dart';
 import 'package:corso_flutter/widgets/CardVideo.dart';
 
@@ -15,18 +14,32 @@ class PrimaPagina extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text('Flutter Demo Home Page'),
         ),
-        body: ListView.builder(
-            itemCount: lista.length,
-            itemBuilder: (context, index) {
-              if (lista[index] % 2 == 0) {
-                return CardVideo(numero: lista[index]);
-              } else {
-                return CardTesto(numero: lista[index]);
-              }
-            }),
+        body: Center(
+            child: SizedBox(
+              width: 300,
+                height: 400,
+                child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/seconda', arguments: 'Ciaooo');
+                    },
+                    child: Card(
+                        elevation: 10,
+                        clipBehavior: Clip.hardEdge,
+                        child: Column(
+                          children: [
+                            Hero(tag: 'immagine-copertina', // tramite Hero possiamo animare il passaggio di un widget (specificato nel child) da una pagina all'altra, utilizzando lo stesso tag
+                            child:Image.asset('images/spiaggia_dipinto.jpg', fit: BoxFit.cover)),
+                            Text('Corso Flutter', style: TextStyle(fontSize: 24)),
+                          ],
+                        ),
+                    ),
+                ),
+            ),
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/seconda', arguments: 'Ciaooo'); // passiamo un argomento alla navigazione
+            Navigator.pushNamed(context, '/seconda',
+                arguments: 'Ciaooo'); // passiamo un argomento alla navigazione
           },
           tooltip: 'Cambia pagina',
           child: Icon(Icons.change_circle),
