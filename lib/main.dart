@@ -13,37 +13,41 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: DefaultTabController(
         length: 9, // deve matchare il numero di tab
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Flutter Tabs Demo'),
-            bottom: TabBar(
-              indicatorColor: Colors.red, // indicator è la barra sotto la tab selezionata
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorWeight: 5,
-              // indicator: BoxDecoration( // possiamo personalizzare l'indicator ad esempio utilizzando una BoxDecoration (diventa un rettangolo che copre per intero la tab)
-              //   color: Colors.red,
-              //   borderRadius: BorderRadius.circular(10),
-              // ),
-              isScrollable: true,
-              tabs: [ // qui possiamo aggiungere tab
-                Tab(icon: Icon(Icons.home), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.video_collection), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.access_alarm), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.abc), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.ac_unit), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.dangerous), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
-                Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
+            flexibleSpace: const Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TabBar(
+                  indicatorColor: Colors.red, // indicator è la barra sotto la tab selezionata
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorWeight: 5,
+                  // indicator: BoxDecoration( // possiamo personalizzare l'indicator ad esempio utilizzando una BoxDecoration (diventa un rettangolo che copre per intero la tab)
+                  //   color: Colors.red,
+                  //   borderRadius: BorderRadius.circular(10),
+                  // ),
+                  isScrollable: true,
+                  tabs: [ // qui possiamo aggiungere tab
+                    Tab(icon: Icon(Icons.home), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.video_collection), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.access_alarm), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.abc), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.ac_unit), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.dangerous), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
+                    Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
+                  ],
+                ),
               ],
             ),
           ),
-          body: TabBarView( // qui possiamo aggiungere i contenuti rispettivamente della prima e seconda tab (ecc...)
+          body: const TabBarView( // qui possiamo aggiungere i contenuti rispettivamente della prima e seconda tab (ecc...)
             children: [
               Icon(Icons.home),
               Icon(Icons.video_collection),
