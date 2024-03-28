@@ -1,8 +1,3 @@
-import 'package:corso_flutter/RouteGenerator.dart';
-import 'package:corso_flutter/screens/PrimaPagina.dart';
-import 'package:corso_flutter/screens/SecondaPagina.dart';
-import 'package:corso_flutter/widgets/CardTesto.dart';
-import 'package:corso_flutter/widgets/CardVideo.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,26 +13,52 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
-      home: PrimaPagina(),
-      onGenerateRoute: RouteGenerator.generateRoute,
+      home: DefaultTabController(
+        length: 9, // deve matchare il numero di tab
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Flutter Tabs Demo'),
+            bottom: TabBar(
+              indicatorColor: Colors.red, // indicator è la barra sotto la tab selezionata
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorWeight: 5,
+              // indicator: BoxDecoration( // possiamo personalizzare l'indicator ad esempio utilizzando una BoxDecoration (diventa un rettangolo che copre per intero la tab)
+              //   color: Colors.red,
+              //   borderRadius: BorderRadius.circular(10),
+              // ),
+              isScrollable: true,
+              tabs: [ // qui possiamo aggiungere tab
+                Tab(icon: Icon(Icons.home), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.video_collection), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.access_alarm), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.abc), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.ac_unit), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.dangerous), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
+                Tab(icon: Icon(Icons.account_balance_rounded), text: 'texdfdsfdt'),
+              ],
+            ),
+          ),
+          body: TabBarView( // qui possiamo aggiungere i contenuti rispettivamente della prima e seconda tab (ecc...)
+            children: [
+              Icon(Icons.home),
+              Icon(Icons.video_collection),
+              Icon(Icons.access_alarm),
+              Icon(Icons.abc),
+              Icon(Icons.ac_unit),
+              Icon(Icons.dangerous),
+              Icon(Icons.account_balance_rounded),
+              Icon(Icons.account_balance_rounded),
+              Icon(Icons.account_balance_rounded),
+            ],
+          ),
+        ),
+      ),
+      // onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
