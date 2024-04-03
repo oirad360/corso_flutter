@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:corso_flutter/widgets/CardTesto.dart';
-import 'package:corso_flutter/widgets/CardVideo.dart';
 
 class PrimaPagina extends StatelessWidget {
   PrimaPagina({super.key});
@@ -29,7 +27,7 @@ class PrimaPagina extends StatelessWidget {
                           children: [
                             Hero(tag: 'immagine-copertina', // tramite Hero possiamo animare il passaggio di un widget (specificato nel child) da una pagina all'altra, utilizzando lo stesso tag
                             child:Image.asset('images/spiaggia_dipinto.jpg', fit: BoxFit.cover)),
-                            Text('Corso Flutter', style: TextStyle(fontSize: 24)),
+                            const Text('Corso Flutter', style: TextStyle(fontSize: 24)),
                           ],
                         ),
                     ),
@@ -42,7 +40,7 @@ class PrimaPagina extends StatelessWidget {
                 arguments: 'Ciaooo'); // passiamo un argomento alla navigazione
           },
           tooltip: 'Cambia pagina',
-          child: Icon(Icons.change_circle),
+          child: const Icon(Icons.change_circle),
         ));
   }
 }
