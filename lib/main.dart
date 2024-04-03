@@ -12,9 +12,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _messengerKey = GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: _messengerKey,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
@@ -27,9 +30,20 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Flutter Demo'),
         ),
         body: null,
-        floatingActionButton: const FloatingActionButton(
-          onPressed: null,
-          tooltip: 'Increment',
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            final snackbar = SnackBar(
+              content: const Text('Yay! A SnackBar!'),
+              action: SnackBarAction(
+                label: 'Undo',
+                onPressed: () {
+                  // Some code to undo the change.
+                },
+              ),
+            );
+            _messengerKey.currentState?.showSnackBar(snackbar);
+          },
+          tooltip: 'Show snackbar',
           child: Icon(Icons.add),
         )
       )
