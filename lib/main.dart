@@ -41,7 +41,25 @@ class _MyHomePageState extends State<MyHomePage> {
       body: null,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          showDialog(context: context, builder: (context) {
+            return SimpleDialog(
+              title: const Text('Simple dialog'),
+              children: [
+                SimpleDialogOption(
+                  onPressed: () {},
+                  child: const Text('Option 1'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {},
+                  child: const Text('Option 2'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {},
+                  child: const Text('Option 3'),
+                )
+              ],
+            );
+          });
         },
         tooltip: 'Show snackbar',
         child: Icon(Icons.add),
