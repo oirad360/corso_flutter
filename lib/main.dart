@@ -29,7 +29,20 @@ class _MyAppState extends State<MyApp> {
           foregroundColor: Colors.white,
           title: const Text('Flutter Demo'),
         ),
-        body: null,
+        body: const Center(
+          child: Column(
+            children: [
+              Chip(
+                avatar: CircleAvatar(
+                  backgroundColor: Colors.green,
+                  child: Text('LR'),
+                ),
+                label: Text('Luca Rossi'),
+              ),
+              CircularProgressIndicator()
+            ],
+          )
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             final snackbar = SnackBar(
