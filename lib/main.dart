@@ -37,27 +37,50 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
-        body: null,
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: GestureDetector( // il gesture detector è un widget che permette di catturare i gesti dell'utente, è il widget più completo per la gestione dei gesti
+            onTap: () {
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text('onTap Alert Dialog'),
+                  content: Text('You have tapped on the container.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Close'),
+                    )
+                  ],
+                );
+              });
+            },
+            onDoubleTap: () {
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text('onDoubleTap Alert Dialog'),
+                  content: Text('You have double tapped on the container.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Close'),
+                    )
+                  ],
+                );
+              });
+            },
+            child: Container(
+              width: double.infinity,
+              height: 300,
+              color: Colors.deepPurpleAccent,
+            ),
+          )
+        ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text('Alert dialog'),
-                    content: const Text('This is an alert dialog'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text('No'),
-                      ),
-                      TextButton(onPressed: () {}, child: const Text('Yes')),
-                      TextButton(onPressed: () {}, child: const Text('Maybe')),
-                    ],
-                  );
-                });
-          },
-          tooltip: 'Show snackbar',
+          onPressed: () {},
           child: Icon(Icons.add),
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
