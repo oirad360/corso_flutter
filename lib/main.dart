@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
+
   final String title;
 
   @override
@@ -28,42 +30,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(
-          widget.title
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
         ),
-      ),
-      body: null,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(context: context, builder: (context) {
-            return SimpleDialog(
-              title: const Text('Simple dialog'),
-              children: [
-                SimpleDialogOption(
-                  onPressed: () {},
-                  child: const Text('Option 1'),
-                ),
-                SimpleDialogOption(
-                  onPressed: () {},
-                  child: const Text('Option 2'),
-                ),
-                SimpleDialogOption(
-                  onPressed: () {},
-                  child: const Text('Option 3'),
-                )
-              ],
-            );
-          });
-        },
-        tooltip: 'Show snackbar',
-        child: Icon(Icons.add),
-      ) // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: null,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Alert dialog'),
+                    content: const Text('This is an alert dialog'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text('No'),
+                      ),
+                      TextButton(onPressed: () {}, child: const Text('Yes')),
+                      TextButton(onPressed: () {}, child: const Text('Maybe')),
+                    ],
+                  );
+                });
+          },
+          tooltip: 'Show snackbar',
+          child: Icon(Icons.add),
+        ) // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
