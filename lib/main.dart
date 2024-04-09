@@ -30,6 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _isCheckedCheckbox = false;
+  String _genere = 'maschio';
+  double _sliderValue = 40;
+  bool _isCheckedSwitch = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,17 +43,58 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         body: Padding(
-            padding: const EdgeInsets.all(8),
-            child: InkWell(
-              // ink well permette di gestire una quantità inferiore di gesti rispetto a GestureDetector
-              // ma permette di gestire la parte grafica (infatti se tocchiamo il container senza colore
-              // notiamo l'animazione del tap che prima non c'era con gesture detector)
-              splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-              onTap: () {},
-              child: Container(
-                width: double.infinity,
-                height: 300,
-              ),
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: [
+                TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter your username',
+                  ),
+                  cursorColor: Theme.of(context).colorScheme.primary,
+                  maxLength: 10,
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                ),
+                Checkbox(value: _isCheckedCheckbox, checkColor: Colors.redAccent, activeColor: Colors.green, onChanged: (value) {
+                  setState(() {
+                      _isCheckedCheckbox = value!;
+                  });
+                }),
+                Row(
+                  children: [
+                    // il contenuto della variabile del groupValue (genere) deve corrispondere con il value del Radio che vogliamo selezionare di default
+                    Radio(value: 'maschio', groupValue: _genere, onChanged: (value) { // entrambi i Radio devono avere lo stesso groupValue
+                      setState(() {
+                        _genere = value!;
+                      });
+                    }),
+                    Text('Maschio'),
+                    Radio(value: 'femmina', groupValue: _genere, onChanged: (value) {
+                      setState(() {
+                        _genere = value!;
+                      });
+                    }),
+                    Text('Femmina'),
+                  ],
+                ),
+                Slider(
+                  value: _sliderValue,
+                  min: 0,
+                  max: 100,
+                  divisions: 10,
+                  label: _sliderValue.round().toString(),
+                  onChanged: (value) {
+                    setState(() {
+                      _sliderValue = value;
+                    });
+                  },
+                ),
+                Switch(value: _isCheckedSwitch, onChanged: (value){
+                  setState(() {
+                    _isCheckedSwitch = value;
+                  });
+                })
+              ],
             )
         ),
         floatingActionButton: FloatingActionButton(
