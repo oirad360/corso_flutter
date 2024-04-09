@@ -30,11 +30,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isCheckedCheckbox = false;
-  String _genere = 'maschio';
-  double _sliderValue = 40;
-  bool _isCheckedSwitch = false;
-
+  final _formKey = GlobalKey<FormState>(); // usiamo una chiave per gestire lo stato del form
+  bool _checkBoxValue = false;
+  Map data = {"nome": "", "cognome": ""};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,60 +40,76 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
-        body: Padding(
-            padding: EdgeInsets.all(8),
-            child: Column(
+        body: Form( // wrappiamo tutto in un Form
+          key: _formKey,
+          child: Column(
               children: [
-                TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Enter your username',
-                  ),
-                  cursorColor: Theme.of(context).colorScheme.primary,
-                  maxLength: 10,
-                  style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
-                ),
-                Checkbox(value: _isCheckedCheckbox, checkColor: Colors.redAccent, activeColor: Colors.green, onChanged: (value) {
-                  setState(() {
-                      _isCheckedCheckbox = value!;
-                  });
-                }),
-                Row(
-                  children: [
-                    // il contenuto della variabile del groupValue (genere) deve corrispondere con il value del Radio che vogliamo selezionare di default
-                    Radio(value: 'maschio', groupValue: _genere, onChanged: (value) { // entrambi i Radio devono avere lo stesso groupValue
-                      setState(() {
-                        _genere = value!;
-                      });
-                    }),
-                    Text('Maschio'),
-                    Radio(value: 'femmina', groupValue: _genere, onChanged: (value) {
-                      setState(() {
-                        _genere = value!;
-                      });
-                    }),
-                    Text('Femmina'),
-                  ],
-                ),
-                Slider(
-                  value: _sliderValue,
-                  min: 0,
-                  max: 100,
-                  divisions: 10,
-                  label: _sliderValue.round().toString(),
-                  onChanged: (value) {
-                    setState(() {
-                      _sliderValue = value;
-                    });
+                TextFormField( // non uso più TextField ma TextFormField, che presenta il validator e il metodo onSave
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Inserisci il nome';
+                    }
+                    return null;
                   },
+                  onSaved: (value) {
+                    data['nome'] = value!;
+                  },
+                  textInputAction: TextInputAction.next, // Cambia il tasto in basso a destra della tastiera (in questo caso mando il focus al prossimo campo)
+                  decoration: InputDecoration(
+                    label: Text('Nome'),
+                  ),
                 ),
-                Switch(value: _isCheckedSwitch, onChanged: (value){
-                  setState(() {
-                    _isCheckedSwitch = value;
-                  });
-                })
-              ],
-            )
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Inserisci il cognome';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    data['cognome'] = value!;
+                  },
+                  textInputAction: TextInputAction.done, // chiudo la tastiera
+                  decoration: InputDecoration(
+                    label: Text('Cognome'),
+                  ),
+                ),
+                FormField(builder: (state) { // questo è un FormField personalizzato, in questo caso lo utilizziamo per creare una checkbox con validazione (non esiste un widget apposito come TextFormField per le checkbox)
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Checkbox(value: _checkBoxValue, onChanged: (value) {
+                            setState(() {
+                              _checkBoxValue = value!;
+                            });
+                          }),
+                          Text('Accetta i termini e le condizioni')
+                        ]
+                      ),
+                      if (state.hasError)
+                        Text(
+                          state.errorText!,
+                          style: TextStyle(color: Colors.red),
+                        )
+                    ]
+                  );
+                },
+                validator: (value) {
+                  if(!_checkBoxValue) {
+                    return 'Devi accettare i termini e le condizioni';
+                  } else {
+                    return null;
+                  }
+                }),
+                ElevatedButton(onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save(); // triggera il metodo onSave di TextFormField
+                    print(data);
+                  }
+                }, child: Text('Invia'))
+              ]
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
