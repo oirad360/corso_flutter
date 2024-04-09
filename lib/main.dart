@@ -40,6 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
+        ////////////////// NOTA //////////////////
+        // per creare form in Flutter si consiglia di usare queste 2 librerie:
+        // flutter_form_builder: https://pub.dev/packages/flutter_form_builder
+        // form_builder_validators: https://pub.dev/packages/form_builder_validators
+        //////////////////////////////////////////
         body: Form( // wrappiamo tutto in un Form
           key: _formKey,
           child: Column(
