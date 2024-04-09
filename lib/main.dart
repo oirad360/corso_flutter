@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,85 +31,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  double _top = 0;
-  double _left = 0;
-
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Text(widget.title),
-          ),
-          body: Padding(
-              padding: const EdgeInsets.all(8),
-              child: GestureDetector(
-                // il gesture detector è un widget che permette di catturare i gesti dell'utente, è il widget più completo per la gestione dei gesti
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('onTap Alert Dialog'),
-                          content: Text('You have tapped on the container.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Close'),
-                            )
-                          ],
-                        );
-                      });
-                },
-                onDoubleTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('onDoubleTap Alert Dialog'),
-                          content:
-                              Text('You have double tapped on the container.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Close'),
-                            )
-                          ],
-                        );
-                      });
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 300,
-                  color: Colors.deepPurpleAccent,
-                ),
-              )),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            child: Icon(Icons.add),
-          ) // This trailing comma makes auto-formatting nicer for build methods.
-          ),
-      Positioned(
-        child: GestureDetector(
-          onPanUpdate: (details) {
-            setState(() {
-              _top = max(0, _top + details.delta.dy);
-              _left = max(0, _left + details.delta.dx);
-            });
-          },
-          child: Container(
-            width: 100,
-            height: 100,
-            color: Colors.red,
-          ),
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
         ),
-        top: _top,
-        left: _left,
-      )
-    ]);
+        body: Padding(
+            padding: const EdgeInsets.all(8),
+            child: InkWell(
+              // ink well permette di gestire una quantità inferiore di gesti rispetto a GestureDetector
+              // ma permette di gestire la parte grafica (infatti se tocchiamo il container senza colore
+              // notiamo l'animazione del tap che prima non c'era con gesture detector)
+              splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+              onTap: () {},
+              child: Container(
+                width: double.infinity,
+                height: 300,
+              ),
+            )
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ) // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
