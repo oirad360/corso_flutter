@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282957534980",
+    "project_id": "corso-flutter-85b57",
+    "storage_bucket": "corso-flutter-85b57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282957534980:android:f74b03879106a3bb172251",
+        "android_client_info": {
+          "package_name": "me.danzalone.corso_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARZrRGdq9_NeEo9t2G3TkkllRg4D3vNn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
