@@ -47,9 +47,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _formKey = GlobalKey<FormState>(); // usiamo una chiave per gestire lo stato del form
-  bool _checkBoxValue = false;
-  Map data = {"nome": "", "cognome": ""};
+  late Future<List<Album>> albums;
+
+  @override
+  void initState() { // le chiamate asincrone vanno fatte nel metodo initState
+    super.initState();
+    albums = fetchAlbums();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,81 +62,23 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
-        ////////////////// NOTA //////////////////
-        // per creare form in Flutter si consiglia di usare queste 2 librerie:
-        // flutter_form_builder: https://pub.dev/packages/flutter_form_builder
-        // form_builder_validators: https://pub.dev/packages/form_builder_validators
-        //////////////////////////////////////////
-        body: Form( // wrappiamo tutto in un Form
-          key: _formKey,
-          child: Column(
-              children: [
-                TextFormField( // non uso più TextField ma TextFormField, che presenta il validator e il metodo onSave
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Inserisci il nome';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    data['nome'] = value!;
-                  },
-                  textInputAction: TextInputAction.next, // Cambia il tasto in basso a destra della tastiera (in questo caso mando il focus al prossimo campo)
-                  decoration: InputDecoration(
-                    label: Text('Nome'),
-                  ),
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Inserisci il cognome';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    data['cognome'] = value!;
-                  },
-                  textInputAction: TextInputAction.done, // chiudo la tastiera
-                  decoration: InputDecoration(
-                    label: Text('Cognome'),
-                  ),
-                ),
-                FormField(builder: (state) { // questo è un FormField personalizzato, in questo caso lo utilizziamo per creare una checkbox con validazione (non esiste un widget apposito come TextFormField per le checkbox)
-                  return Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(value: _checkBoxValue, onChanged: (value) {
-                            setState(() {
-                              _checkBoxValue = value!;
-                            });
-                          }),
-                          Text('Accetta i termini e le condizioni')
-                        ]
-                      ),
-                      if (state.hasError)
-                        Text(
-                          state.errorText!,
-                          style: TextStyle(color: Colors.red),
-                        )
-                    ]
+        body: FutureBuilder( // FutureBuilder è un widget che permette di costruire un widget in base al risultato di una Future
+          future: albums, // la future che vogliamo aspettare è 'albums', che viene inizializzata dalla chiamata a fetchAlbums() nel metodo initState
+          builder: (context, snapshot) {
+            if(snapshot.hasData){
+              return ListView.builder(
+                itemCount: snapshot.data!.length, // data potrebbe essere null, quindi usiamo '!'
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('[$index] ${snapshot.data![index].title}'),
                   );
                 },
-                validator: (value) {
-                  if(!_checkBoxValue) {
-                    return 'Devi accettare i termini e le condizioni';
-                  } else {
-                    return null;
-                  }
-                }),
-                ElevatedButton(onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save(); // triggera il metodo onSave di TextFormField
-                    print(data);
-                  }
-                }, child: Text('Invia'))
-              ]
-          ),
+              );
+            }else if(snapshot.hasError){
+              return Text('${snapshot.error}');
+            }
+            return const CircularProgressIndicator();
+          }
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
