@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+Future<http.Response> fetchData() { // Future è un tipo di dato asincrono
+  return http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
+}
 
 void main() {
   runApp(const MyApp());
