@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'models/album.dart';
+import 'dart:convert'; // per utilizzare i metodi di 'json' (es. json.decode)
 
 Future<http.Response> fetchData() { // Future è un tipo di dato asincrono
   return http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
+}
+
+Future<List<Album>> fetchAlbums() async {
+  List<Album> albums = [];
+  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums'));
+  var body = json.decode(response.body); // body sarà una lista di mappe, ma non lo sappiamo a priori quindi non possiamo usare List<Map<String, dynamic>>
+  for(var i=0; i<body.length; i++) {
+    albums.add(Album.fromJson(body[i]));
+  }
+  return albums;
 }
 
 void main() {
