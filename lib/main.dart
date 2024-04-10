@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'models/album.dart';
 import 'dart:convert'; // per utilizzare i metodi di 'json' (es. json.decode)
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 
 Future<http.Response> fetchData() { // Future è un tipo di dato asincrono
   return http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
@@ -17,7 +20,11 @@ Future<List<Album>> fetchAlbums() async {
   return albums;
 }
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
