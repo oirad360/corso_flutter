@@ -10,7 +10,7 @@ Future<http.Response> fetchData() { // Future è un tipo di dato asincrono
 Future<List<Album>> fetchAlbums() async {
   List<Album> albums = [];
   final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums'));
-  var body = json.decode(response.body); // body sarà una lista di mappe, ma non lo sappiamo a priori quindi non possiamo usare List<Map<String, dynamic>>
+  var body = json.decode(response.body); // body sarà una lista di mappe, ma non lo sappiamo a priori quindi usiamo var
   for(var i=0; i<body.length; i++) {
     albums.add(Album.fromJson(body[i]));
   }
