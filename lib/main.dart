@@ -57,7 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size.width; // larghezza dello schermo
     return Scaffold(
+        backgroundColor: size < 600 ? Colors.white : Colors.grey[400],
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
