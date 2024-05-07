@@ -102,7 +102,10 @@ class _MyHomePageState extends State<MyHomePage> {
             }
 
             _locationData = await location.getLocation();
-            print(_locationData);
+
+            location.onLocationChanged.listen((LocationData currentLocation) {
+              print('cambio location: ${_locationData}');
+            });
           },
           child: Icon(Icons.add),
         ) // This trailing comma makes auto-formatting nicer for build methods.
