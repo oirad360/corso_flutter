@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:location/location.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,7 +78,32 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            Location location = new Location();
+
+            bool _serviceEnabled;
+            PermissionStatus _permissionGranted;
+            LocationData _locationData;
+
+            _serviceEnabled = await location.serviceEnabled();
+            if (!_serviceEnabled) {
+              _serviceEnabled = await location.requestService();
+              if (!_serviceEnabled) {
+                return;
+              }
+            }
+
+            _permissionGranted = await location.hasPermission();
+            if (_permissionGranted == PermissionStatus.denied) {
+              _permissionGranted = await location.requestPermission();
+              if (_permissionGranted != PermissionStatus.granted) {
+                return;
+              }
+            }
+
+            _locationData = await location.getLocation();
+            print(_locationData);
+          },
           child: Icon(Icons.add),
         ) // This trailing comma makes auto-formatting nicer for build methods.
     );
