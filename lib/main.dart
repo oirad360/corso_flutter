@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'models/album.dart';
@@ -32,7 +33,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: defaultTargetPlatform == TargetPlatform.android ?
+      'Android Demo App' :
+      defaultTargetPlatform == TargetPlatform.iOS ?
+      'iOS Demo App' :
+      'Demo App'),
     );
   }
 }
