@@ -118,6 +118,31 @@ class _MyHomePageState extends State<MyHomePage> {
             ))
           ],
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          fixedColor: Colors.white,
+          backgroundColor: Colors.blue,
+          iconSize: 30.0,
+          currentIndex: 0,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.access_alarm),
+              label: "Alarm",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business),
+              label: "Business",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              label: "School",
+            ),
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           child: Icon(Icons.add),
